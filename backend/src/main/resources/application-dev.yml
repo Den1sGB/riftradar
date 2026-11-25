@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/riftradar}
+    username: ${DB_USERNAME:riftradar}
+    password: ${DB_PASSWORD:dev-local-postgres-password}
+
+riftradar:
+  jwt:
+    secret: ${JWT_SECRET:dev-only-insecure-secret-key-change-in-production-0123456789abcdef}
+  riot:
+    mode: ${RIOT_GATEWAY_MODE:mock}
