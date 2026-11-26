@@ -13,11 +13,13 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "";
 export class ApiClientError extends Error {
   readonly status: number;
   readonly errorCode?: string;
+  readonly retryAfterSeconds?: number;
 
   constructor(problem: ApiProblem) {
     super(problem.detail || problem.title || "API request failed");
     this.status = problem.status;
     this.errorCode = problem.errorCode;
+    this.retryAfterSeconds = problem.retryAfterSeconds;
   }
 }
 

@@ -70,6 +70,33 @@ body {
   gap: 10px;
 }
 
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--muted);
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.nav-link:hover {
+  color: var(--text);
+  background: var(--surface-alt);
+}
+
+.nav-link.active {
+  color: var(--gold);
+  background: rgba(200, 155, 60, 0.12);
+  border-color: rgba(200, 155, 60, 0.35);
+}
+
 .card {
   background: rgba(15, 23, 42, 0.92);
   border: 1px solid var(--border);

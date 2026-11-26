@@ -1,4 +1,5 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "./App";
 import { AuthProvider } from "./context/AuthContext";
@@ -71,11 +72,13 @@ describe("RiftRadar App", () => {
     });
   });
 
-  it("renders summoner radar and match history from API", async () => {
+  it("renders summoner radar, match history, and refresh cooldown feedback", async () => {
     render(
-      <AuthProvider>
-        <App />
-      </AuthProvider>,
+      <MemoryRouter>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </MemoryRouter>,
     );
 
     await waitFor(() => {
@@ -84,5 +87,12 @@ describe("RiftRadar App", () => {
     expect(screen.getByText(/Tilt 10\/100/i)).toBeInTheDocument();
     expect(screen.getByText(/70%/i)).toBeInTheDocument();
     expect(screen.getByText("Ahri")).toBeInTheDocument();
+
+    const refreshBtn = screen.getByRole("button", { name: /Atualizar/i });
+    fireEvent.click(refreshBtn);
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: /Aguarde 30s/i })).toBeDisabled();
+    });
   });
 });
