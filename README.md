@@ -40,3 +40,4 @@ Acesse `http://localhost:3000`.
 ## Documentação Adicional
 - [Threat Model (Segurança do Negócio)](docs/threat-model.md)
 - [Runbook Operacional](docs/runbook.md)
+- [Deploy no Railway](docs/deploy-railway.md)
