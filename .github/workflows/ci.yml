@@ -22,7 +22,7 @@ jobs:
           cache: maven
       - name: Run unit and integration tests
         working-directory: backend
-        run: ./mvnw verify -B
+        run: chmod +x mvnw && ./mvnw verify -B
 
   frontend:
     name: Frontend (TypeScript + Vitest + Build)
