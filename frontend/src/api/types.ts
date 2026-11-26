@@ -39,6 +39,7 @@ export interface MatchItem {
   matchId: string;
   queueId: number;
   championName: string;
+  championIconUrl: string;
   lane: string;
   win: boolean;
   kills: number;
@@ -59,6 +60,7 @@ export interface SummonerProfile {
   tagLine: string;
   summonerLevel: number;
   profileIconId: number;
+  profileIconUrl: string;
   soloTier: string;
   soloRank: string;
   soloLp: number;
@@ -72,6 +74,8 @@ export interface SummonerDashboard {
   recentMatches: MatchItem[];
   cacheHit: boolean;
   gatewayMode: string;
+  dataDragonVersion: string;
+  dataDragonBaseUrl: string;
   fetchedAt: string;
 }
 

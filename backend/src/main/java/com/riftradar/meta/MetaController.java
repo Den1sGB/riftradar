@@ -14,24 +14,31 @@ import org.springframework.web.bind.annotation.RestController;
 public class MetaController {
 
     private final RiotGateway riotGateway;
+    private final DataDragonService dataDragonService;
 
-    public MetaController(RiotGateway riotGateway) {
+    public MetaController(RiotGateway riotGateway, DataDragonService dataDragonService) {
         this.riotGateway = riotGateway;
+        this.dataDragonService = dataDragonService;
     }
 
     @GetMapping
     public ResponseEntity<MetaResponse> meta() {
         List<String> platforms = Arrays.stream(RiotRegion.values()).map(Enum::name).toList();
+        String ddVersion = dataDragonService.getLatestVersion();
         return ResponseEntity.ok(new MetaResponse(
                 "RiftRadar",
                 riotGateway.modeName(),
-                platforms
+                platforms,
+                ddVersion,
+                "https://ddragon.leagueoflegends.com/cdn/" + ddVersion
         ));
     }
 
     public record MetaResponse(
             String service,
             String riotGatewayMode,
-            List<String> supportedPlatforms
+            List<String> supportedPlatforms,
+            String dataDragonVersion,
+            String dataDragonBaseUrl
     ) {}
 }

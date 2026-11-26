@@ -11,6 +11,7 @@ import com.riftradar.riot.RiotDtos.RiotLeagueEntryDto;
 import com.riftradar.riot.RiotDtos.RiotMatchDto;
 import com.riftradar.riot.RiotDtos.RiotMatchDto.Participant;
 import com.riftradar.riot.RiotDtos.RiotSummonerDto;
+import com.riftradar.meta.DataDragonService;
 import com.riftradar.riot.RiotGateway;
 import com.riftradar.riot.RiotRegion;
 import com.riftradar.summoner.SummonerDtos.MatchItemDto;
@@ -43,6 +44,7 @@ public class SummonerService {
     private final PerformanceAnalyzer performanceAnalyzer;
     private final StringRedisTemplate redisTemplate;
     private final RiftRadarProperties properties;
+    private final DataDragonService dataDragonService;
     private final Clock clock;
 
     public SummonerService(
@@ -52,6 +54,7 @@ public class SummonerService {
             PerformanceAnalyzer performanceAnalyzer,
             StringRedisTemplate redisTemplate,
             RiftRadarProperties properties,
+            DataDragonService dataDragonService,
             Clock clock
     ) {
         this.riotGateway = riotGateway;
@@ -60,6 +63,7 @@ public class SummonerService {
         this.performanceAnalyzer = performanceAnalyzer;
         this.redisTemplate = redisTemplate;
         this.properties = properties;
+        this.dataDragonService = dataDragonService;
         this.clock = clock;
     }
 
@@ -157,12 +161,16 @@ public class SummonerService {
             List<MatchRecordEntity> matches,
             boolean cacheHit
     ) {
+        String ddVersion = dataDragonService.getLatestVersion();
+        String ddBaseUrl = "https://ddragon.leagueoflegends.com/cdn/" + ddVersion;
         return new SummonerDashboardResponse(
-                SummonerProfileDto.from(snapshot),
+                SummonerProfileDto.from(snapshot, ddVersion),
                 radar,
-                matches.stream().map(MatchItemDto::from).toList(),
+                matches.stream().map(m -> MatchItemDto.from(m, ddVersion)).toList(),
                 cacheHit,
                 riotGateway.modeName(),
+                ddVersion,
+                ddBaseUrl,
                 snapshot.getFetchedAt()
         );
     }

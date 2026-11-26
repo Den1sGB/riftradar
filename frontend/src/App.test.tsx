@@ -25,6 +25,7 @@ describe("RiftRadar App", () => {
         tagLine: "KR1",
         summonerLevel: 420,
         profileIconId: 4512,
+        profileIconUrl: "https://ddragon.leagueoflegends.com/cdn/15.10.1/img/profileicon/4512.png",
         soloTier: "DIAMOND",
         soloRank: "II",
         soloLp: 74,
@@ -48,6 +49,7 @@ describe("RiftRadar App", () => {
           matchId: "BR1_1234",
           queueId: 420,
           championName: "Ahri",
+          championIconUrl: "https://ddragon.leagueoflegends.com/cdn/15.10.1/img/champion/Ahri.png",
           lane: "MIDDLE",
           win: true,
           kills: 9,
@@ -63,6 +65,8 @@ describe("RiftRadar App", () => {
       ],
       cacheHit: false,
       gatewayMode: "mock",
+      dataDragonVersion: "15.10.1",
+      dataDragonBaseUrl: "https://ddragon.leagueoflegends.com/cdn/15.10.1",
       fetchedAt: "2026-11-25T18:00:00Z",
     });
   });

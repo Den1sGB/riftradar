@@ -222,18 +222,28 @@ export function App() {
             <>
               <section className="card">
                 <div className="row-between">
-                  <div>
-                    <h2 style={{ margin: 0 }}>
-                      {dashboard.profile.gameName}
-                      <span className="muted"> #{dashboard.profile.tagLine}</span>
-                    </h2>
-                    <div className="muted" style={{ marginTop: 4 }}>
-                      {dashboard.profile.platform} · Nível {dashboard.profile.summonerLevel} ·{" "}
-                      <strong>
-                        {dashboard.profile.soloTier} {dashboard.profile.soloRank}
-                      </strong>{" "}
-                      ({dashboard.profile.soloLp} LP) · {dashboard.cacheHit ? "Cache Redis/DB" : "Sync API"} (
-                      {dashboard.gatewayMode})
+                  <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                    <img
+                      src={dashboard.profile.profileIconUrl}
+                      alt={`${dashboard.profile.gameName} icon`}
+                      width={56}
+                      height={56}
+                      style={{ borderRadius: "50%", border: "2px solid var(--gold)", flexShrink: 0 }}
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                    />
+                    <div>
+                      <h2 style={{ margin: 0 }}>
+                        {dashboard.profile.gameName}
+                        <span className="muted"> #{dashboard.profile.tagLine}</span>
+                      </h2>
+                      <div className="muted" style={{ marginTop: 4 }}>
+                        {dashboard.profile.platform} · Nível {dashboard.profile.summonerLevel} ·{" "}
+                        <strong>
+                          {dashboard.profile.soloTier} {dashboard.profile.soloRank}
+                        </strong>{" "}
+                        ({dashboard.profile.soloLp} LP) · {dashboard.cacheHit ? "Cache Redis/DB" : "Sync API"} (
+                        {dashboard.gatewayMode}) · ddragon {dashboard.dataDragonVersion}
+                      </div>
                     </div>
                   </div>
 
@@ -289,9 +299,19 @@ export function App() {
                 <div className="match-list">
                   {dashboard.recentMatches.map((m) => (
                     <div key={m.matchId} className={`match-row ${m.win ? "win" : "loss"}`}>
-                      <div>
-                        <strong>{m.championName}</strong>
-                        <div className="muted">{m.lane}</div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <img
+                          src={m.championIconUrl}
+                          alt={m.championName}
+                          width={36}
+                          height={36}
+                          style={{ borderRadius: 6, border: "1px solid var(--border)", flexShrink: 0 }}
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                        />
+                        <div>
+                          <strong>{m.championName}</strong>
+                          <div className="muted">{m.lane}</div>
+                        </div>
                       </div>
                       <div>
                         <strong>
