@@ -24,3 +24,19 @@ Guia passo a passo para publicar o **RiftRadar** no Railway mantendo **custo mí
    - `RIOT_GATEWAY_MODE`: `mock` (ou `http` se tiver `RIOT_API_KEY`)
    - `CORS_ALLOWED_ORIGINS`: URL final do frontend (ex.: `https://riftradar.vercel.app`)
 5. Faça o deploy e valide `https://<seu-backend>.up.railway.app/actuator/health`.
+
+## Passo a Passo (Frontend na Vercel — Custo \$0)
+
+O arquivo [frontend/vercel.json](file:///c:/Users/denis/OneDrive/Desktop/RiftRadar/frontend/vercel.json) já está configurado com *rewrite* para `/index.html`, garantindo que rotas do React Router (como `/watchlist`) funcionem ao atualizar a página.
+
+1. Acesse [vercel.com](https://vercel.com) -> **Add New Project** -> importe `Den1sGB/riftradar` (via GitHub).
+2. Configure:
+   - **Root Directory:** `frontend`
+   - **Framework Preset:** `Vite`
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+3. Em **Environment Variables**, adicione:
+   - `VITE_API_BASE_URL` = `https://<seu-backend>.up.railway.app` (sem barra no final).
+4. Clique em **Deploy**.
+5. Depois que a Vercel gerar a URL final (ex.: `https://riftradar.vercel.app`), volte no Railway -> **Variables** do `backend` e atualize:
+   - `CORS_ALLOWED_ORIGINS` = `https://riftradar.vercel.app`
