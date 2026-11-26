@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
@@ -55,13 +55,13 @@ jobs:
       - name: Build frontend image
         run: docker build -t riftradar-frontend:ci ./frontend
       - name: Scan backend image with Trivy
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: riftradar-backend:ci
           severity: HIGH,CRITICAL
           exit-code: "1"
       - name: Scan frontend image with Trivy
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: riftradar-frontend:ci
           severity: HIGH,CRITICAL
